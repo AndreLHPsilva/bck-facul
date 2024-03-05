@@ -44,25 +44,6 @@ class SigninUseCase {
       expiresIn: "1d",
     });
 
-    if (verifyAlreadyExistsUser.team) {
-      const team = verifyAlreadyExistsUser.team;
-
-      let pokemons = team.TeamsOnPokemons?.map((teamOnPokemon) => {
-        return teamOnPokemon.pokemon!;
-      });
-
-      if (!pokemons) {
-        pokemons = [];
-      }
-
-      team.pokemons = pokemons?.sort((a, b) => a.external_id - b.external_id);
-
-      delete team.TeamsOnPokemons;
-      delete verifyAlreadyExistsUser.team;
-
-      verifyAlreadyExistsUser.team = team;
-    }
-
     return {
       token,
       user: verifyAlreadyExistsUser,
